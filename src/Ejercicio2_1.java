@@ -15,8 +15,9 @@ public class Ejercicio2_1 {
         TransformaImagen ti = new TransformaImagen(f);
 
         ti.transformaNegativo();
-
-//        ti.transformaOscuro();
+ti.transformaEscalaGrises();
+ti.transformaBlancoNegro(200);
+        ti.transformaOscuro();
 //
 //        ti.transformaBlancoNegro();
 

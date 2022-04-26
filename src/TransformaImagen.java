@@ -55,8 +55,58 @@ public class TransformaImagen {
     }
 
 
-    public void transformaBlancoNegro() throws IOException {
+    public void transformaEscalaGrises() throws IOException {
         // Transformar a una imagen en blanco y negro y guardar como *_bn.bmp
+        File file = new File("resource/" + getNombreSinExtension() + "_bn.bmp");
+        FileInputStream input = new FileInputStream(f);
+        FileOutputStream output = new FileOutputStream(file);
+        byte[] meta = input.readNBytes(54);
+        output.write(meta);
+
+        int primero = input.read();
+        int segundo = input.read();
+        int tercero = input.read();
+
+        while (tercero != -1) {
+            int gris = (primero + segundo + tercero) / 3;
+            output.write(gris);
+            output.write(gris);
+            output.write(gris);
+
+            primero = input.read();
+            segundo = input.read();
+            tercero = input.read();
+        }
+        input.close();
+        output.close();
+
+
+    }
+
+    public void transformaBlancoNegro(int umbral) throws IOException {
+        // Transformar a una imagen en blanco y negro y guardar como *_bn.bmp
+        File file = new File("resource/" + getNombreSinExtension() + "_bw.bmp");
+        FileInputStream input = new FileInputStream(f);
+        FileOutputStream output = new FileOutputStream(file);
+        byte[] meta = input.readNBytes(54);
+        output.write(meta);
+
+        int r = input.read();
+        int g = input.read();
+        int b = input.read();
+
+        while (b != -1) {
+            int bw = (r + g + b) / 3 > umbral ? 255 : 0;
+            output.write(bw);
+            output.write(bw);
+            output.write(bw);
+
+            r = input.read();
+            g = input.read();
+            b = input.read();
+        }
+        input.close();
+        output.close();
 
 
     }
