@@ -96,7 +96,13 @@ public class TransformaImagen {
         int b = input.read();
 
         while (b != -1) {
-            int bw = (r + g + b) / 3 > umbral ? 255 : 0;
+            // int bw = (r + g + b) / 3 > umbral ? 255 : 0;
+            int bw = (r + g + b) / 3;
+            if (bw > umbral) {
+                bw = 255;
+            } else {
+                bw = 0;
+            }
             output.write(bw);
             output.write(bw);
             output.write(bw);
